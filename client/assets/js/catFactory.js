@@ -14,13 +14,32 @@ function genColors(){
     return colors
 }
 
-//This function code needs to modified so that it works with Your cat code.
 function headColor(color,code) {
-    $('.cat__head, .cat__chest').css('background', '#' + color)  //This changes the color of the cat
+    $('#leftEar, #rightEar').css('background', '#' + color)  
+    $('.cat__head, .cat__chest, .cat__paw-left, .cat__paw-right, .cat__paw-left_inner, .cat__paw-right_inner, .cat__tail')
+        .css('background', '#' + color)  //This changes the color of the cat
+
     $('#headcode').html('code: '+code) //This updates text of the badge next to the slider
     $('#dnabody').html(code) //This updates the body color part of the DNA that is displayed below the cat
 }
 
+function mouthcolor(color,code) {
+    $('.cat__mouth-contour, .cat__chest_inner').css('background', '#' + color) 
+    $('#mouthcode').html('code: '+code) 
+    $('#dnamouth').html(code) 
+}
+
+function eyescolor(color,code) {
+    $('.pupil-right, .pupil-left').css('background', '#' + color) 
+    $('#eyescode').html('code: '+code) 
+    $('#dnaeyes').html(code) 
+}
+
+function earscolor(color,code) {
+    $('.cat__ear--right-inside, .cat__ear--left-inside').css('background', '#' + color) 
+    $('#earscode').html('code: '+code) 
+    $('#dnaears').html(code) 
+}
 
 //###################################################
 //Functions below will be used later on in the project

@@ -5,7 +5,7 @@ var defaultDNA = {
     "headcolor" : 10,
     "mouthColor" : 13,
     "eyesColor" : 96,
-    "earsColor" : 10,
+    "earsColor" : 98,
     //Cattributes
     "eyesShape" : 1,
     "decorationPattern" : 1,
@@ -50,11 +50,33 @@ function getDna(){
 
 function renderCat(dna){
     headColor(colors[dna.headcolor],dna.headcolor)
+    mouthcolor(colors[dna.mouthColor],dna.mouthColor)
+    eyescolor(colors[dna.eyesColor],dna.eyesColor)
+    earscolor(colors[dna.earsColor],dna.earsColor)
+
     $('#bodycolor').val(dna.headcolor)
+    $('#mouthcolor').val(dna.mouthColor)
+    $('#eyescolor').val(dna.eyesColor)
+    $('#earscolor').val(dna.earsColor)
+
 }
 
 // Changing cat colors
 $('#bodycolor').change(()=>{
     var colorVal = $('#bodycolor').val()
     headColor(colors[colorVal],colorVal)
+})
+$('#mouthcolor').change(()=>{
+  var colorVal = $('#mouthcolor').val()
+  mouthcolor(colors[colorVal],colorVal)
+})
+
+$('#eyescolor').change(()=>{
+  var colorVal = $('#eyescolor').val()
+  eyescolor(colors[colorVal],colorVal)
+})
+
+$('#earscolor').change(()=>{
+  var colorVal = $('#earscolor').val()
+  earscolor(colors[colorVal],colorVal)
 })
