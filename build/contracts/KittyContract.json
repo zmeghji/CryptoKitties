@@ -1,0 +1,350 @@
+{
+  "contractName": "KittyContract",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "approved",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "Approval",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "from",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "Transfer",
+      "type": "event"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        }
+      ],
+      "name": "balanceOf",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "balance",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "name",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "tokenName",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "ownerOf",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "symbol",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "tokenSymbol",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "totalSupply",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "total",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "transfer",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.16+commit.9c3226ce\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"approved\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"balance\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"tokenName\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"ownerOf\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"tokenSymbol\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"total\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{\"balanceOf(address)\":{\"details\":\"Returns the number of tokens in ``owner``'s account.\"},\"ownerOf(uint256)\":{\"details\":\"Returns the owner of the `tokenId` token.      * Requirements:      * - `tokenId` must exist.\"}}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"project:/contracts/KittyContract.sol\":\"KittyContract\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/IERC721.sol\":{\"keccak256\":\"0x125db945d46feb070059d68915a15d9d95b6c066ce9b31c1d3fd6ad94e5dbcba\",\"urls\":[\"bzz-raw://b59671c2543cff88f5d0c579e08579d459b15074547529d1978f542408955cce\",\"dweb:/ipfs/QmS8Fs7VVQx5H8AGwqUXaGc3KmnwhuGyLYtEsSQzu622hJ\"]},\"project:/contracts/KittyContract.sol\":{\"keccak256\":\"0x9d9cc975c6a924ad52831bb45e97c7f9556cc5db7d3cebf6960dad3f04fcd17c\",\"urls\":[\"bzz-raw://c5cac513b2f67d8a6e8782a36a5822f3ab3812ed87b2bc1034f6023f34420720\",\"dweb:/ipfs/QmXiD3UiS6M64azFWTZgUjyvhBnvgPnvEMsFtvDAx3tn9Z\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "pragma solidity ^0.5.12;\r\n\r\nimport \"./IERC721.sol\";\r\n\r\ncontract KittyContract is IERC721{\r\n}",
+  "sourcePath": "C:\\Code\\CryptoKitties\\contracts\\KittyContract.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/KittyContract.sol",
+    "exportedSymbols": {
+      "KittyContract": [
+        60
+      ]
+    },
+    "id": 61,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 56,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".12"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:1"
+      },
+      {
+        "absolutePath": "project:/contracts/IERC721.sol",
+        "file": "./IERC721.sol",
+        "id": 57,
+        "nodeType": "ImportDirective",
+        "scope": 61,
+        "sourceUnit": 55,
+        "src": "28:23:1",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [
+          {
+            "arguments": null,
+            "baseName": {
+              "contractScope": null,
+              "id": 58,
+              "name": "IERC721",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 54,
+              "src": "81:7:1",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_IERC721_$54",
+                "typeString": "contract IERC721"
+              }
+            },
+            "id": 59,
+            "nodeType": "InheritanceSpecifier",
+            "src": "81:7:1"
+          }
+        ],
+        "contractDependencies": [
+          54
+        ],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": false,
+        "id": 60,
+        "linearizedBaseContracts": [
+          60,
+          54
+        ],
+        "name": "KittyContract",
+        "nodeType": "ContractDefinition",
+        "nodes": [],
+        "scope": 61,
+        "src": "55:37:1"
+      }
+    ],
+    "src": "0:92:1"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "project:/contracts/KittyContract.sol",
+      "exportedSymbols": {
+        "KittyContract": [
+          60
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            "^",
+            "0.5",
+            ".12"
+          ]
+        },
+        "id": 56,
+        "name": "PragmaDirective",
+        "src": "0:24:1"
+      },
+      {
+        "attributes": {
+          "SourceUnit": 55,
+          "absolutePath": "project:/contracts/IERC721.sol",
+          "file": "./IERC721.sol",
+          "scope": 61,
+          "symbolAliases": [
+            null
+          ],
+          "unitAlias": ""
+        },
+        "id": 57,
+        "name": "ImportDirective",
+        "src": "28:23:1"
+      },
+      {
+        "attributes": {
+          "contractDependencies": [
+            54
+          ],
+          "contractKind": "contract",
+          "documentation": null,
+          "fullyImplemented": false,
+          "linearizedBaseContracts": [
+            60,
+            54
+          ],
+          "name": "KittyContract",
+          "nodes": [
+            null
+          ],
+          "scope": 61
+        },
+        "children": [
+          {
+            "attributes": {
+              "arguments": null
+            },
+            "children": [
+              {
+                "attributes": {
+                  "contractScope": null,
+                  "name": "IERC721",
+                  "referencedDeclaration": 54,
+                  "type": "contract IERC721"
+                },
+                "id": 58,
+                "name": "UserDefinedTypeName",
+                "src": "81:7:1"
+              }
+            ],
+            "id": 59,
+            "name": "InheritanceSpecifier",
+            "src": "81:7:1"
+          }
+        ],
+        "id": 60,
+        "name": "ContractDefinition",
+        "src": "55:37:1"
+      }
+    ],
+    "id": 61,
+    "name": "SourceUnit",
+    "src": "0:92:1"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.16+commit.9c3226ce.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.3",
+  "updatedAt": "2021-12-25T23:09:14.642Z",
+  "devdoc": {
+    "methods": {
+      "balanceOf(address)": {
+        "details": "Returns the number of tokens in ``owner``'s account."
+      },
+      "ownerOf(uint256)": {
+        "details": "Returns the owner of the `tokenId` token.      * Requirements:      * - `tokenId` must exist."
+      }
+    }
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}
