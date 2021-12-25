@@ -48,6 +48,36 @@ function getDna(){
     return parseInt(dna)
 }
 
+function defaultCat(){
+  renderCat(defaultDNA)
+}
+
+function randomDNA(){
+  var dnaStr = String(Math.floor(Math.random()*1E16))
+  //Colors
+  var dna = {
+    "headcolor" : dnaStr.substring(0, 2),
+    "mouthColor" : dnaStr.substring(2, 4),
+    "eyesColor" : dnaStr.substring(4, 6),
+    "earsColor" : dnaStr.substring(6, 8),
+    //Cattributes
+    "eyesShape" : dnaStr.substring(8,9) % 8 + 1    ,
+    "decorationPattern" : dnaStr.substring(9, 10)  % 8 + 1,
+    "decorationMidcolor" : dnaStr.substring(10, 12),
+    "decorationSidescolor" : dnaStr.substring(12, 14),
+    "animation" :  dnaStr.substring(14, 15) % 6 + 1,
+    "lastNum" :  dnaStr.substring(15, 16)
+  }
+  return dna
+}
+
+//Random cat DNA
+function randomCat(){
+var dna = randomDNA()
+  //Rendering Cat
+ renderCat(dna)
+}
+
 function renderCat(dna){
     headColor(colors[dna.headcolor],dna.headcolor)
     mouthcolor(colors[dna.mouthColor],dna.mouthColor)
@@ -114,3 +144,13 @@ $('#animation').change(()=>{
   var animationVal = parseInt( $('#animation').val() )
   animationVariation(animationVal)
 })
+
+function showColors(){
+  $('#catColors').removeClass('hidden')
+  $('#cattributes').addClass('hidden')
+}
+
+function showCattributes(){
+  $('#cattributes').removeClass('hidden')
+  $('#catColors').addClass('hidden')
+}
