@@ -246,3 +246,86 @@ function SidesColor(color,code) {
     $('#sidecode').html('code: '+code)
     $('#dnadecorationSides').html(code)
 }
+
+function animationVariation(num){
+    $('#dnadanimation').html(num);
+    switch (num) {
+        case 1:
+            $('#animationName').html('Head')
+            movingHead()
+            break
+        case 2:
+            $('#animationName').html('Tail')
+            movingTail()
+            break
+        case 3:
+            $('#animationName').html('Ears')
+            movingEars()
+            break
+        case 4:
+            $('#animationName').html('Left Ear')
+            leftEar()
+            break
+        case 5:
+            $('#animationName').html('Right Ear')
+            rightEar()
+            break
+        case 6:
+            $('#animationName').html('Attentive')
+            attentiveCat()
+            break
+    }
+}
+
+
+function movingHead() {
+    resetAnimation()
+        $('#head').addClass('movingHead')
+        $('#leftEar').addClass('movingEarsLeft')
+        $('#rightEar').addClass('movingEarsRight')    
+}
+
+function movingTail() {
+    resetAnimation()
+        $('#tail').addClass('movingTail')
+    
+}
+
+//moving both ears
+function movingEars() {
+    resetAnimation()
+        $('#leftEar').addClass('movingEarsLeft')
+        $('#rightEar').addClass('movingEarsRight')
+    
+}
+
+// Single Ears
+
+function leftEar() {
+    resetAnimation()
+    $('#leftEar').addClass('moving-Single-EarLeft')
+    
+}
+
+function rightEar() {
+    resetAnimation()
+    $('#rightEar').addClass('moving-Single-EarRight')
+    
+}
+
+// Attentive Cat Ears animation
+
+function attentiveCat() {
+    resetAnimation()
+    $('#leftEar').addClass('attentionLeft')
+    $('#rightEar').addClass('attentionRight')
+    
+}
+
+function resetAnimation() {
+    $("#head").removeClass("movingHead")
+    $("#leftEar").removeClass("movingEarsLeft moving-Single-EarLeft attentionLeft")
+    $("#rightEar").removeClass("movingEarsRight moving-Single-EarRight attentionRight")
+    $("#tail").removeClass("movingTail")
+
+}

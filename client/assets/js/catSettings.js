@@ -4,7 +4,7 @@ var colors = Object.values(allColors())
 var defaultDNA = {
     "headcolor" : 10,
     "mouthColor" : 13,
-    "eyesColor" : 96,
+    "eyesColor" : 76,
     "earsColor" : 98,
     //Cattributes
     "eyesShape" : 1,
@@ -54,12 +54,20 @@ function renderCat(dna){
     eyescolor(colors[dna.eyesColor],dna.eyesColor)
     earscolor(colors[dna.earsColor],dna.earsColor)
     eyeVariation(dna.eyesShape);
+    decorationVariation(dna.decorationPattern);
+    midColor(colors[dna.decorationMidcolor],dna.decorationMidcolor)
+    SidesColor(colors[dna.decorationSidescolor],dna.decorationSidescolor)
+    animationVariation(dna.animation)
+
     $('#bodycolor').val(dna.headcolor)
     $('#mouthcolor').val(dna.mouthColor)
     $('#eyescolor').val(dna.eyesColor)
     $('#earscolor').val(dna.earsColor)
     $('#eyeshape').val(dna.eyesShape)
-
+    $('#decoration').val(dna.eyesShape)
+    $('#decorationmiddle').val(dna.eyesShape)
+    $('#decorationsides').val(dna.eyesShape)
+    $('#animation').val(dna.animation)
 }
 
 // Changing cat colors
@@ -100,4 +108,9 @@ $('#decorationmiddle').change(()=>{
 $('#decorationsides').change(()=>{
   var colorVal = $('#decorationsides').val()
   SidesColor(colors[colorVal],colorVal)
+})
+
+$('#animation').change(()=>{
+  var animationVal = parseInt( $('#animation').val() )
+  animationVariation(animationVal)
 })
