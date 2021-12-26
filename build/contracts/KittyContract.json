@@ -9016,12 +9016,13 @@
     "1337": {
       "events": {},
       "links": {},
-      "address": "0x55534C99344fe4762EfB228EC446951BB50AF5DC",
-      "transactionHash": "0xa8e507914b8b618b83450b47c8a04c3c95d611b8a79ccadd779e8fda2b9ce08d"
+      "address": "0xf63A840c2D587797AFa967A5A583E904e17622a6",
+      "transactionHash": "0xed9c1b4a097dc287501631f24824250ece9cd8927c90a05beade778f48b52416"
     }
   },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2021-12-26T19:33:13.809Z",
+  "updatedAt": "2021-12-26T20:08:13.512Z",
+  "networkType": "ethereum",
   "devdoc": {
     "methods": {
       "isOwner()": {
