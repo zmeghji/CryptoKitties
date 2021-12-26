@@ -29,6 +29,9 @@ contract KittyContract is Ownable, IERC721{
     mapping (uint256 => address) public kittyIndexToOwner;
     mapping (address => uint256) ownershipTokenCount;
 
+    mapping (uint256 => address) public kittyIndexToApproved;
+    mapping (address => mapping (address => bool)) private _operatorApprovals;
+
     uint256 public gen0Counter;
     
 
@@ -61,6 +64,7 @@ contract KittyContract is Ownable, IERC721{
 
         if (_from != address(0)) {
             ownershipTokenCount[_from]--;
+            delete kittyIndexToApproved[_tokenId];
         }
 
         // Emit the transfer event.
@@ -115,4 +119,51 @@ contract KittyContract is Ownable, IERC721{
 
         return newKittyId;
     }
+
+    function approve(address _approved, uint256 _tokenId) external{
+        //either the sender is the owner or is authorized for the owner 
+        require(kittyIndexToOwner[_tokenId]==msg.sender  || 
+            _operatorApprovals[kittyIndexToOwner[_tokenId]][msg.sender]);
+
+        kittyIndexToApproved[_tokenId] = _approved;
+
+        emit Approval(kittyIndexToOwner[_tokenId], _approved, _tokenId);
+    }
+
+    function setApprovalForAll(address _operator, bool _approved)  external{
+        _operatorApprovals[msg.sender][_operator] = _approved;
+        emit ApprovalForAll(msg.sender, _operator, _approved);
+    }
+
+    function getApproved(uint256 _tokenId) external view returns (address){
+        //check length for kitties array and throw if not valid id 
+        require(isValidTokenId(_tokenId));
+
+        return kittyIndexToApproved[_tokenId];
+    }
+
+    function isApprovedForAll(address _owner, address _operator) public view returns (bool){
+        return _operatorApprovals[_owner][_operator];
+    }
+
+    function transferFrom(address _from, address _to, uint256 _tokenId) external{
+        require(_to != address(0), "to address cannot be zero address");
+        require(_owns(_from, _tokenId), "from address is not the owner");
+
+        require( msg.sender == _from || 
+            kittyIndexToApproved[_tokenId] == msg.sender ||
+            isApprovedForAll(_from, msg.sender),
+            "message sender not authorized to transfer token");
+
+
+        require(isValidTokenId(_tokenId), "not a valid kitty Id");
+
+        _transfer(_from, _to, _tokenId);
+    }
+
+    
+    function isValidTokenId(uint256 _tokenId) private view returns(bool){
+        return _tokenId < kitties.length;
+    }
+
 }
