@@ -224,4 +224,38 @@ contract KittyContract is Ownable, IERC721{
         return result;
     }
 
+    function breed(uint256 _dadId, uint256 _mumId) public returns (uint256){
+
+        require(_owns(msg.sender, _dadId), "The user doesn't own the token");
+        require(_owns(msg.sender, _mumId), "The user doesn't own the token");
+
+        ( uint256 dadDna,,,,uint256 DadGeneration ) = getKitty(_dadId);
+
+        ( uint256 mumDna,,,,uint256 MumGeneration ) = getKitty(_mumId);
+        
+        uint256 newDna = _mixDna(dadDna, mumDna);
+
+        uint256 kidGen = 0;
+        if (DadGeneration < MumGeneration){
+            kidGen = MumGeneration + 1;
+        } else if (DadGeneration > MumGeneration){
+            kidGen = DadGeneration + 1;
+        } else{
+            kidGen = MumGeneration + 1;
+        }
+
+        return _createKitty(_mumId, _dadId, kidGen, newDna, msg.sender);
+    }
+    function _mixDna(uint256 _dadDna, uint256 _mumDna) internal returns (uint256){
+        //dadDna: 11 22 33 44 55 66 77 88 
+        //mumDna: 88 77 66 55 44 33 22 11
+
+        uint256 firstHalf = _dadDna / 100000000; //11223344
+        uint256 secondHalf = _mumDna % 100000000; //44332211
+        
+        uint256 newDna = firstHalf * 100000000;
+        newDna = newDna + secondHalf; 
+        return newDna;
+    }
+
 }
