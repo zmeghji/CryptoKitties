@@ -2,7 +2,7 @@ var web3 = new Web3(Web3.givenProvider);
 
 var instance;
 var user;
-var contractAddress = "0xf63A840c2D587797AFa967A5A583E904e17622a6";
+var contractAddress = "0xD31336e931c0F5Abd2A102E16AbA79880dcF80c4";
 
 $(document).ready(function(){
     window.ethereum.enable().then(function(accounts){
@@ -42,4 +42,21 @@ function createKitty(){
         else
             console.log(txHash);
     })
+}
+
+async function getKitties(){  
+
+    var arrayId;
+    var kitty;
+    try{    
+      arrayId = await instance.methods.getKittyByOwner(user).call();
+    } catch(err){
+      console.log(err);
+    }
+    for (i = 0; i < arrayId.length; i++){
+      kitty = await instance.methods.getKitty(arrayId[i]).call();
+      appendCat(kitty[0],i)
+    }
+    console.log(kitty);
+    
 }

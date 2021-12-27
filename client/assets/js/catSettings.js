@@ -42,7 +42,7 @@ function getDna(){
     dna += $('#dnadecoration').html()
     dna += $('#dnadecorationMid').html()
     dna += $('#dnadecorationSides').html()
-    dna += $('#dnaanimation').html()
+    dna += $('#dnadanimation').html()
     dna += $('#dnaspecial').html()
 
     return parseInt(dna)
