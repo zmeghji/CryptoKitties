@@ -2,7 +2,7 @@ var web3 = new Web3(Web3.givenProvider);
 
 var instance;
 var user;
-var contractAddress = "0xD31336e931c0F5Abd2A102E16AbA79880dcF80c4";
+var contractAddress = "0xed82be5D2dD696184AEEb5656F8F4B8f17633f91";
 
 $(document).ready(function(){
     window.ethereum.enable().then(function(accounts){
@@ -55,8 +55,43 @@ async function getKitties(){
     }
     for (i = 0; i < arrayId.length; i++){
       kitty = await instance.methods.getKitty(arrayId[i]).call();
-      appendCat(kitty[0],i)
+      appendCat(kitty[0],i, kitty.generation)
     }
     console.log(kitty);
     
+}
+
+
+//Get kittues for breeding that are not selected
+async function breedKitties(gender) {
+    var arrayId = await instance.methods.getKittyByOwner(user).call();
+    for (i = 0; i < arrayId.length; i++) {
+      appendBreed(arrayId[i],gender)
+    }
+}
+  
+//Appending cats to breed selection
+async function appendBreed(id,gender) {
+    var kitty = await instance.methods.getKitty(id).call()  
+    breedAppend(kitty[0], id, kitty.generation,gender)
+}
+  
+//Appending cats to breed selection
+async function breed(dadId,mumId) {
+    try {
+        var newKitty = await instance.methods.breed(dadId,mumId).send()  
+        console.log(newKitty)
+        setTimeout(()=>{
+            go_to('catalogue.html')
+        },2000)
+    } catch (err){
+        console.log(err)
+    }  
+}
+
+function go_to(url) {
+    window.location.href = url;
+}
+function empty(str) {
+    return (!str || 0 === str.length);
 }

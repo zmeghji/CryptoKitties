@@ -48,13 +48,22 @@
     </div>
 
     <div class="container middleBox">
+        <button class="btn red-btn mb-3 mt-3" onclick="go_to('breed.html')">Breed </button>
+        <br>
         <div class="row" id="catsDiv">
 
         </div>
 
 
     </div>
-
+    <script>
+        // when page load create the catalog
+        $(document).ready(function () {
+            setTimeout(() => {
+                getKitties()
+            }, 1000)
+        });
+    </script>
 </body>
 
 <script src="assets/js/colors.js"></script>
