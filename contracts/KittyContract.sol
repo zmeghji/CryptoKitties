@@ -247,15 +247,39 @@ contract KittyContract is Ownable, IERC721{
         return _createKitty(_mumId, _dadId, kidGen, newDna, msg.sender);
     }
     function _mixDna(uint256 _dadDna, uint256 _mumDna) internal returns (uint256){
-        //dadDna: 11 22 33 44 55 66 77 88 
-        //mumDna: 88 77 66 55 44 33 22 11
+        uint256[8] memory geneArray;
 
-        uint256 firstHalf = _dadDna / 100000000; //11223344
-        uint256 secondHalf = _mumDna % 100000000; //44332211
-        
-        uint256 newDna = firstHalf * 100000000;
-        newDna = newDna + secondHalf; 
-        return newDna;
+        uint8 random = uint8( now % 255 ); //binary between 00000000-11111111
+        uint256 i = 1; //Random number is 11001011
+        uint256 index = 7;
+
+        //MUM DNA 11 22 33 44 55 66 77 88
+
+        for (i = 1; i <= 128; i=i*2) {
+            if(random & i != 0){
+                geneArray[index] = uint8( _mumDna % 100);
+            }
+            else{
+                geneArray[index] = uint8( _dadDna % 100);
+            }
+            _mumDna = _mumDna / 100;
+            _dadDna = _dadDna / 100;
+
+            index = index - 1;
+        }
+
+
+        uint256 newGene;
+
+        //[11, 22, 33, 44, 55, 66, 77, 88]
+        //1122334455667788
+        for (i = 0; i < 8; i++) {
+            newGene = newGene + geneArray[i];
+            if(i != 7){
+                newGene = newGene * 100;
+            }
+        }
+        return newGene;
     }
 
 }
