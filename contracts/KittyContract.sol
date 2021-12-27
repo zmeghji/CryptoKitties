@@ -11,6 +11,10 @@ contract KittyContract is Ownable, IERC721{
 
     bytes4 internal constant MAGIC_ERC721_RECEIVED = bytes4(keccak256("onERC721Received(address,address,uint256,bytes)"));
 
+    bytes4 private constant _INTERFACE_ID_ERC721 = 0x80ac58cd;
+
+    bytes4 private constant _INTERFACE_ID_ERC165 = 0x01ffc9a7;   
+
     event Birth(
         address owner, 
         uint256 kittenId, 
@@ -37,6 +41,10 @@ contract KittyContract is Ownable, IERC721{
 
     uint256 public gen0Counter;
     
+
+    function supportsInterface(bytes4 _interfaceId) external view returns (bool){
+        return ( _interfaceId == _INTERFACE_ID_ERC721 || _interfaceId == _INTERFACE_ID_ERC165);
+    }
 
     function balanceOf(address owner) external view returns (uint256 balance){
         return ownershipTokenCount[owner];
