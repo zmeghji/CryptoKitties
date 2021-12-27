@@ -1,12 +1,15 @@
 pragma solidity ^0.5.12;
 
 import "./IERC721.sol";
+import "./IERC721Receiver.sol";
 import "./Ownable.sol";
 
 contract KittyContract is Ownable, IERC721{
     uint256 public constant CREATION_LIMIT_GEN0 =10;
     string public constant name = "ZeeKitties";
     string public constant symbol = "ZK";
+
+    bytes4 internal constant MAGIC_ERC721_RECEIVED = bytes4(keccak256("onERC721Received(address,address,uint256,bytes)"));
 
     event Birth(
         address owner, 
@@ -147,23 +150,58 @@ contract KittyContract is Ownable, IERC721{
     }
 
     function transferFrom(address _from, address _to, uint256 _tokenId) external{
-        require(_to != address(0), "to address cannot be zero address");
-        require(_owns(_from, _tokenId), "from address is not the owner");
-
-        require( msg.sender == _from || 
-            kittyIndexToApproved[_tokenId] == msg.sender ||
-            isApprovedForAll(_from, msg.sender),
-            "message sender not authorized to transfer token");
-
-
-        require(isValidTokenId(_tokenId), "not a valid kitty Id");
-
+        
+        require(_isApprovedOrOwner(msg.sender, _from, _to, _tokenId));
         _transfer(_from, _to, _tokenId);
     }
 
     
     function isValidTokenId(uint256 _tokenId) private view returns(bool){
         return _tokenId < kitties.length;
+    }
+    function safeTransferFrom(address _from, address _to, uint256 _tokenId) public {
+        safeTransferFrom(_from, _to, _tokenId, "");
+    }
+
+    function safeTransferFrom(address _from, address _to, uint256 _tokenId, bytes memory _data) public {
+        require( _isApprovedOrOwner(msg.sender, _from, _to, _tokenId) );
+        _safeTransfer(_from, _to, _tokenId, _data);
+    }
+
+    function _safeTransfer(address _from, address _to, uint256 _tokenId, bytes memory _data) internal{
+        _transfer(_from, _to, _tokenId);
+        require( _checkERC721Support(_from, _to, _tokenId, _data) );
+    }
+    function _checkERC721Support(address _from, address _to, uint256 _tokenId, bytes memory _data) 
+        internal returns (bool){
+        if( !_isContract(_to) ){
+            return true;
+        }
+        //Call onERC721Received in the _to contract
+        bytes4 returnData = IERC721Receiver(_to).onERC721Received(msg.sender, _from, _tokenId, _data);
+        //Check return value
+        return returnData == MAGIC_ERC721_RECEIVED;
+    }
+
+    function _isContract(address _to) internal view returns (bool){
+        uint32 size;
+        assembly{
+            size := extcodesize(_to)
+        }
+        return size > 0;
+    }
+
+    function _isApprovedOrOwner(address _spender, address _from, address _to, uint256 _tokenId) internal view returns (bool) {
+        require(_tokenId < kitties.length); //Token must exist
+        require(_to != address(0)); //TO address is not zero address
+        require(_owns(_from, _tokenId)); //From owns the token
+        
+        //spender is from OR spender is approved for tokenId OR spender is operator for from
+        return (_spender == _from || _approvedFor(_spender, _tokenId) || isApprovedForAll(_from, _spender));
+    }
+
+    function _approvedFor(address _claimant, uint256 _tokenId) internal view returns (bool) {
+        return kittyIndexToApproved[_tokenId] == _claimant;
     }
 
 }
