@@ -28,7 +28,6 @@ contract KittyMarketPlace is Ownable, IKittyMarketPlace {
 
     function getOffer(uint256 _tokenId) external view returns ( 
         address seller, uint256 price, uint256 index, uint256 tokenId, bool active){
-            require(tokenIdToOffer[_tokenId].active, "no active offer for token");
 
             Offer storage offer = tokenIdToOffer[_tokenId];
             seller = offer.seller;
@@ -67,7 +66,7 @@ contract KittyMarketPlace is Ownable, IKittyMarketPlace {
     function setOffer(uint256 _price, uint256 _tokenId) external{
         require (_ownsKitty(msg.sender, _tokenId), "only the owner can create an offer");
         require(!tokenIdToOffer[_tokenId].active, "There's already an active offer for this token");
-        require(_kittyContract.getApproved(_tokenId) ==address(this));
+        require(_kittyContract.isApprovedForAll(msg.sender, address(this)), "Contract needs to be approved to transfer the kitty in the future");
 
         Offer memory offer = Offer({
             seller: msg.sender,
